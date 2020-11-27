@@ -37,8 +37,8 @@ L'utilisateur doit alors extrapoler les réponses successives de l'ordinateur po
 | Proposition de l'utilisateur | Réponse de l'ordinateur | Commentaire |
 | --- | --- | --- |
 | **R R R R** | O - - - | On sait qu'il y a exactement un **R**ouge dans la solution, mais on ne sait pas où. |
-| **R R V V** | - - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est ni en 1, ni en 2. On sait de plus qu'il n'y a aucun **V**ert dans la solution (sinon l'ordinateur nous donnerait au moins un "mal placé"). |
-| **B B R B** | - - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est pas en 3. Il est donc en 4. On sait de plus qu'il n'y a aucun **B**leu dans la solution (sinon l'ordinateur nous donnerait au moins un "mal placé"). |
+| **R R V V** | X - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est ni en 1, ni en 2. On sait de plus qu'il n'y a aucun **V**ert dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
+| **B B R B** | X - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est pas en 3. Il est donc en 4. On sait de plus qu'il n'y a aucun **B**leu dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
 | **J J C C** | O - - - | On sait qu'il y a soit un **J**aune placé en 1 ou en 2, soit un **C**yan placé en 3 (puisqu'on est sûr du **R**ouge en 4). |
 | **J J M M** | X X - - | Une hypothèse possible étant qu'il y avait un **J**aune en 1 ou en 2, puisque l'ordinateur nous donne 2 "mal placés", c'est donc qu'il n'y a pas de **J**aune dans la combinaison, et que les 2 "mal placés" sont les 2 **M**agenta. Les 2 **M**agenta sont donc en 1 et en 2. Et comme l'hypothèse d'un **J**aune en 1 ou en 2 est rejetée, c'est donc qu'au coup précédent, c'est le **C**yan en 3 qui était bien placé. |
 | **M M C R** | O O O O | Victoire! |
