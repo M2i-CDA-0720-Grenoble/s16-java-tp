@@ -37,10 +37,10 @@ L'utilisateur doit alors extrapoler les réponses successives de l'ordinateur po
 | Proposition de l'utilisateur | Réponse de l'ordinateur | Commentaire |
 | --- | --- | --- |
 | **R R R R** | O - - - | On sait qu'il y a exactement un **R**ouge dans la solution, mais on ne sait pas où. |
-| **R R V V** | X - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est ni en 1, ni en 2. On sait de plus qu'il n'y a aucun **V**ert dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
-| **B B R B** | X - - - | Puisqu'on sait qu'il y a exactement un **R**ouge dans la solution, on sait qu'il n'est pas en 3. Il est donc en 4. On sait de plus qu'il n'y a aucun **B**leu dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
+| **R R V V** | X - - - | On sait qu'il y a exactement un **R**ouge dans la solution, donc un seul "mal placé" nous indique qu'il n'est ni en 1, ni en 2. On sait de plus qu'il n'y a aucun **V**ert dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
+| **B B R B** | X - - - | On sait qu'il y a exactement un **R**ouge dans la solution, donc un seul "mal placé" nous indique qu'il n'est pas en 3. On sait qu'il n'est pas non plus ni en 1, ni en 2, il est donc en 4. On sait de plus qu'il n'y a aucun **B**leu dans la solution (sinon l'ordinateur nous donnerait au moins un autre "mal placé"). |
 | **J J C C** | O - - - | On sait qu'il y a soit un **J**aune placé en 1 ou en 2, soit un **C**yan placé en 3 (puisqu'on est sûr du **R**ouge en 4). |
-| **J J M M** | X X - - | Une hypothèse possible étant qu'il y avait un **J**aune en 1 ou en 2, puisque l'ordinateur nous donne 2 "mal placés", c'est donc qu'il n'y a pas de **J**aune dans la combinaison, et que les 2 "mal placés" sont les 2 **M**agenta. Les 2 **M**agenta sont donc en 1 et en 2. Et comme l'hypothèse d'un **J**aune en 1 ou en 2 est rejetée, c'est donc qu'au coup précédent, c'est le **C**yan en 3 qui était bien placé. |
+| **J J M M** | X X - - | Une hypothèse possible étant qu'il y avait un seul **J**aune en 1 ou en 2, puisque l'ordinateur nous donne 2 "mal placés", c'est donc que les 2 "mal placés" sont les 2 **M**agenta. Les 2 **M**agenta sont donc en 1 et en 2. Il n'y a donc pas de **J**aune dans la combinaison. Et comme l'hypothèse d'un **J**aune en 1 ou en 2 est rejetée, c'est donc qu'au coup précédent, c'est le **C**yan en 3 qui était bien placé. |
 | **M M C R** | O O O O | Victoire! |
 
 ## Bon, et sinon, on code?
@@ -49,7 +49,7 @@ Ben oui! Allez!
 
 ### 1. Demander une proposition à l'utilisateur
 
-L'utilisateur doit pouvoir écrire une proposition. L'application doit valider que la proposition contient bien 4 lettres, et qu'il s'agit uniquement d'une combinaison des lettres autorisées (**R** pour rouge, **V** pour vert, etc.).
+L'utilisateur doit pouvoir écrire une proposition, sur le modèle des exemples founis ci-dessus. L'application doit valider que la proposition contient bien 4 lettres, et qu'il s'agit uniquement d'une combinaison des lettres autorisées (**R** pour rouge, **V** pour vert, etc.).
 
 <details>
   <summary>[INDICE] Demander une proposition à l'utilisateur</summary>
@@ -74,7 +74,7 @@ L'utilisateur doit pouvoir écrire une proposition. L'application doit valider q
 L'application doit déterminer quelles sont les couleurs, dans la proposition de l'utilisateur, qui sont bien placées par rapport à une solution fixe (par exemple: **M M C R**).
 
 <details>
-  <summary>[CONSEIL] Déterminer les couleurs bien placées</summary>
+  <summary>[INDICE] Déterminer les couleurs bien placées</summary>
 
   Puisque l'ordinateur répond uniquement par un nombre de couleurs bien placées, il suffit de les compter.
 </details>
@@ -84,16 +84,32 @@ L'application doit déterminer quelles sont les couleurs, dans la proposition de
 L'application doit déterminer quelles sont les couleurs, dans la proposition de l'utilisateur, qui sont absentes de la solution fixe.
 
 <details>
-  <summary>[CONSEIL] Déterminer les couleurs absentes</summary>
+  <summary>[INDICE] Déterminer les couleurs absentes</summary>
 
   Puisque l'ordinateur répond uniquement par un nombre de couleurs absentes, il suffit de les compter.
 </details>
 
-### 4. Donner la réponse de l'ordinateur
+<details>
+  <summary>[INDICE] Compter les couleurs absentes</summary>
 
-Dans la proposition de l'utilisateur, l'application doit d'abord déterminer quelles sont les couleurs bien placées, **puis** quelles sont les couleurs absentes **parmi celles qui restent**. Par élimination, les couleurs qui ne sont ni bien placées, ni absentes, sont donc mal placées. A partir de ces informations, l'application doit écrire la réponse de l'ordinateur.
+  Attention: une couleur est considérée comme "absente" s'il n'y a pas suffisamment d'exemplaires de celle-ci dans la solution. Par exemple, si la solution est **R V B C**, la proposition **V V R R** doit répondre par un bien placé (un **V**ert), un mal placé (un **R**ouge), et deux absents (car il n'y a qu'un seul **V**ert et qu'un seul **R**ouge dans la solution).
+</details>
 
-### 5. Recommencer jusqu'à la victoire
+### 4. Trouver les couleurs absentes
+
+L'application doit déterminer quelles sont les couleurs, dans la proposition de l'utilisateur, qui sont présentes dans la solution fixe, mais mal placées.
+
+<details>
+  <summary>[INDICE] Déterminer les couleurs mal placées</summary>
+
+  Toutes les couleurs qui ne sont ni bien placées, ni absentes, sont donc mal placées.
+</details>
+
+### 5. Donner la réponse de l'ordinateur
+
+Connaissant le nombre de couleurs bien placées, mal placées et absentes, l'application doit répondre à la proposition de l'utilisateur.
+
+### 6. Recommencer jusqu'à la victoire
 
 L'application doit répéter le tour de jeu jusqu'à ce que l'utilisateur propose la combinaison correspondant exactement à la réponse. Dans ce cas, l'application demande au joueur s'il souhaite jouer une nouvelle partie, et si oui, le jeu recommence à zéro.
 
